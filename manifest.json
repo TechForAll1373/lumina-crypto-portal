@@ -1,0 +1,23 @@
+{
+  "name": "Nexus of Lumina",
+  "short_name": "Lumina",
+  "description": "Enter Portal • Made with love ✨",
+  "start_url": "/Nexus-of-Lumina/",
+  "display": "standalone",
+  "background_color": "#09051a",
+  "theme_color": "#8a2be2",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect width='192' height='192' fill='%2309051a'/><text x='96' y='118' font-size='72' text-anchor='middle' fill='%23a45deb' font-family='Arial'>✨</text></svg>",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect width='512' height='512' fill='%2309051a'/><text x='256' y='310' font-size='192' text-anchor='middle' fill='%238a2be2' font-family='Arial'>✨</text></svg>",
+      "sizes": "512x512",
+      "type": "image/svg+xml"
+    }
+  ]
+}
