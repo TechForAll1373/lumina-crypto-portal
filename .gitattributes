@@ -1,0 +1,7 @@
+# Auto-detect language
+*.html linguist-language=HTML
+*.css linguist-language=CSS
+*.js linguist-language=JavaScript
+
+# Ignore demo build files if any
+/demo linguist-vendored
