@@ -1,0 +1,32 @@
+# Logs
+*.log
+
+# Dependency directories
+node_modules/
+
+# Build outputs (if ever added)
+/dist
+/build
+/out
+
+# Environment variables
+.env
+.env.local
+
+# IDE & Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+
+# OS
+Thumbs.db
+ehthumbs.db
+
+# Backup files
+*~
+*.bak
+
+# GitHub Pages cache (if built locally)
+_site/
