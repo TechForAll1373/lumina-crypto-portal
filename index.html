@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Enter Portal | Smart Crypto</title>
+  <meta name="description" content="Secure encryption & real-time decryption portal. Made with love ✨" />
+  <meta name="keywords" content="crypto, encryption, real-time decryption, secure, portal, lumina" />
+  <meta name="author" content="TechForAll" />
+  <link rel="manifest" href="/Nexus-of-Lumina/manifest.json" />
+  <style>
+    :root {
+      --bg: #09051a;
+      --card: rgba(10, 6, 30, 0.85);
+      --text: #eae6ff;
+      --accent: #8a2be2;
+      --glow: 0 0 15px rgba(138, 43, 226, 0.5);
+      --border: 1px solid rgba(138, 43, 226, 0.3);
+    }
+    *{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',system-ui,sans-serif}
+    body {
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2.2rem 1rem;
+      background-image:
+        radial-gradient(circle at 15% 30%, rgba(106, 17, 203, 0.08) 0%, transparent 40%),
+        radial-gradient(circle at 85% 70%, rgba(138, 43, 226, 0.1) 0%, transparent 50%);
+    }
+    .header {
+      text-align: center;
+      margin-bottom: 2.2rem;
+    }
+    .main-title {
+      font-size: 2.5rem;
+      font-weight: 800;
+      background: linear-gradient(90deg, #a45deb, #6a11cb, #2575fc);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 0.3rem;
+    }
+    .sub-title {
+      font-size: 1.05rem;
+      color: #c5bfff;
+      opacity: 0.9;
+    }
+    .tool-grid {
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      max-width: 1200px;
+      width: 100%;
+    }
+    .left-col, .right-col {
+      width: 100%;
+      max-width: 480px;
+    }
+    .panel {
+      background: var(--card);
+      border: var(--border);
+      border-radius: 18px;
+      padding: 1.5rem;
+      box-shadow: var(--glow);
+      transition: transform 0.3s ease;
+    }
+    .panel:hover { transform: translateY(-3px); }
+    h2 {
+      font-size: 1.15rem;
+      margin-bottom: 0.9rem;
+      color: #d5ccff;
+      font-weight: 600;
+    }
+    textarea {
+      width: 100%;
+      height: 125px;
+      background: rgba(4, 2, 15, 0.6);
+      color: var(--text);
+      border: var(--border);
+      border-radius: 12px;
+      padding: 1rem;
+      resize: none;
+      font-family: 'Consolas', monospace;
+      font-size: 0.95rem;
+      caret-color: var(--accent);
+    }
+    .btn-row {
+      display: flex;
+      gap: 0.75rem;
+      margin-top: 0.9rem;
+      flex-wrap: wrap;
+    }
+    button {
+      flex: 1;
+      min-width: 105px;
+      padding: 0.6rem;
+      border: none;
+      border-radius: 10px;
+      background: linear-gradient(to right, var(--accent), #6a11cb);
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    button:hover {
+      transform: scale(1.02);
+      background: linear-gradient(to right, #a45deb, #8a2be2);
+    }
+    .copy-btn, .paste-btn {
+      background: rgba(138, 43, 226, 0.2);
+      color: #c9b8ff;
+      border: 1px solid var(--accent);
+    }
+    .copy-btn:hover, .paste-btn:hover {
+      background: rgba(138, 43, 226, 0.35);
+      color: white;
+    }
+
+    /* Hidden Animated Portal */
+    .secret-portal {
+      position: relative;
+      margin-top: 3rem;
+      width: 60px;
+      height: 60px;
+      cursor: pointer;
+      opacity: 0.7;
+      transition: all 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+    }
+    .secret-portal:hover {
+      opacity: 1;
+      transform: rotate(15deg) scale(1.2);
+    }
+    .secret-portal::before {
+      content: "✨";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.2rem;
+      color: var(--accent);
+      text-shadow: 0 0 12px rgba(138, 43, 226, 0.8);
+    }
+    .portal-label {
+      margin-top: 1rem;
+      font-size: 0.95rem;
+      color: #b0a5ff;
+      text-align: center;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: all 0.4s ease;
+    }
+    .secret-portal:hover + .portal-label {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Magic Decoded Preview */
+    #decoded-preview {
+      background: rgba(5, 3, 20, 0.7);
+      color: #a0ffcc;
+      font-style: italic;
+      padding: 1rem;
+      border-radius: 10px;
+      min-height: 40px;
+      margin-top: 0.8rem;
+      word-break: break-all;
+      transition: all 0.3s ease;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1 class="main-title">Enter Portal</h1>
+    <div class="sub-title">Smart Crypto • Made with love ✨</div>
+  </div>
+
+  <div class="tool-grid">
+    <!-- Left: Plain Text Input (NO SHARE) -->
+    <div class="left-col">
+      <div class="panel">
+        <h2>Plain Text Input</h2>
+        <textarea id="plain" maxlength="1000" placeholder="Enter your message..."></textarea>
+        <div class="btn-row">
+          <button onclick="encrypt()">Encrypt</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: Encrypted Output + Magic Decoded Preview -->
+    <div class="right-col">
+      <div class="panel">
+        <h2>Encrypted Output</h2>
+        <textarea id="cipher" maxlength="1000" placeholder="Encrypted result appears here..." readonly></textarea>
+        <div class="btn-row" style="margin-top: 0.8rem;">
+          <button class="copy-btn" onclick="copyCipher()">Copy Encrypted</button>
+          <button onclick="shareCipher()">Share</button>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h2>Decoded Preview</h2>
+        <textarea id="encrypted-input" maxlength="1000" placeholder="Paste encrypted text here..."></textarea>
+        <div id="decoded-preview">— Decoded result appears like magic —</div>
+        <div class="btn-row" style="margin-top: 0.8rem;">
+          <button class="copy-btn" onclick="copyDecoded()">Copy Decoded</button>
+          <button class="paste-btn" onclick="pasteEncrypted()">Paste</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hidden Animated Portal -->
+  <div class="secret-portal" onclick="window.open('https://techforall1373.github.io/Nexus-of-Lumina/','_blank')"></div>
+  <div class="portal-label">Click the portal to enter</div>
+
+  <script>
+    // Auto-save plain input
+    const plain = document.getElementById('plain');
+    plain.addEventListener('input', () => localStorage.setItem('plain', plain.value));
+    window.onload = () => { plain.value = localStorage.getItem('plain') || ''; };
+
+    // Safe encode/decode with validation
+    const safeBtoa = s => btoa(unescape(encodeURIComponent(s)));
+    const safeAtob = s => {
+      if (s === '' || !/^[A-Za-z0-9+/]*={0,2}$/.test(s)) throw new Error('Invalid Base64');
+      return decodeURIComponent(escape(atob(s)));
+    };
+
+    function encrypt() {
+      const t = plain.value.trim();
+      if (!t) return alert('Enter a message.');
+      try { document.getElementById('cipher').value = safeBtoa(t); }
+      catch(e) { alert('Encryption failed.'); }
+    }
+
+    // Real-time magic decryption
+    document.getElementById('encrypted-input').addEventListener('input', () => {
+      const input = document.getElementById('encrypted-input').value.trim();
+      const preview = document.getElementById('decoded-preview');
+      if (!input) {
+        preview.textContent = '— Decoded result appears like magic —';
+        preview.style.color = '#a0ffcc';
+        return;
+      }
+      try {
+        const decoded = safeAtob(input);
+        preview.textContent = decoded;
+        preview.style.color = '#6affb8';
+      } catch (e) {
+        preview.textContent = '✨ Invalid or incomplete encrypted data';
+        preview.style.color = '#ff6a9a';
+      }
+    });
+
+    // Helpers
+    const getDecodedText = () => {
+      const txt = document.getElementById('decoded-preview').textContent;
+      return txt.includes('—') || txt.includes('Invalid') ? '' : txt;
+    };
+
+    const copy = async (text) => {
+      if (!text) return false;
+      try {
+        await navigator.clipboard.writeText(text);
+        return true;
+      } catch {
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        return true;
+      }
+    };
+
+    // Actions
+    const copyCipher = async () => {
+      const t = document.getElementById('cipher').value;
+      if (t && await copy(t)) alert('Copied!');
+    };
+
+    const copyDecoded = async () => {
+      const t = getDecodedText();
+      if (t && await copy(t)) alert('Decoded text copied!');
+      else alert('Nothing valid to copy.');
+    };
+
+    const pasteEncrypted = async () => {
+      try {
+        const text = await navigator.clipboard.readText();
+        if (!text) return alert('Clipboard is empty.');
+        document.getElementById('encrypted-input').value = text;
+        // Trigger input event for real-time decode
+        document.getElementById('encrypted-input').dispatchEvent(new Event('input'));
+      } catch (e) {
+        // Fallback for older browsers
+        const ta = document.createElement('textarea');
+        ta.style.position = 'fixed';
+        ta.style.top = '-1000px';
+        document.body.appendChild(ta);
+        ta.focus();
+        document.execCommand('paste');
+        const pasted = ta.value;
+        document.body.removeChild(ta);
+        if (pasted) {
+          document.getElementById('encrypted-input').value = pasted;
+          document.getElementById('encrypted-input').dispatchEvent(new Event('input'));
+        } else {
+          alert('Paste failed. Please paste manually.');
+        }
+      }
+    };
+
+    const shareCipher = async () => {
+      const t = document.getElementById('cipher').value;
+      if (!t) return alert('Nothing to share.');
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: 'Encrypted Message',
+            text: t,
+            url: 'https://techforall1373.github.io/Nexus-of-Lumina/'
+          });
+        } catch (e) {}
+      } else {
+        await copy(t);
+        alert('Shared via clipboard.');
+      }
+    };
+
+    // PWA Service Worker
+    if ('serviceWorker' in navigator) {
+      const swCode = `
+        self.addEventListener('install', () => self.skipWaiting());
+        self.addEventListener('activate', event => event.waitUntil(clients.claim()));
+        self.addEventListener('fetch', () => {});
+      `;
+      const blob = new Blob([swCode], { type: 'application/javascript' });
+      const swUrl = URL.createObjectURL(blob);
+      navigator.serviceWorker.register(swUrl).catch(console.error);
+    }
+
+    // Generate real manifest.json via Blob URL
+    const manifest = {
+      name: "Nexus of Lumina",
+      short_name: "Lumina",
+      description: "Enter Portal • Made with love ✨",
+      start_url: "/Nexus-of-Lumina/",
+      display: "standalone",
+      background_color: "#09051a",
+      theme_color: "#8a2be2",
+      icons: [{
+        src: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%2309051a'/><text x='50' y='58' font-size='44' text-anchor='middle' fill='%23a45deb'>✨</text></svg>",
+        sizes: "192x192",
+        type: "image/svg+xml"
+      }]
+    };
+    const manBlob = new Blob([JSON.stringify(manifest, null, 2)], { type: 'application/json' });
+    const manUrl = URL.createObjectURL(manBlob);
+    document.querySelector('link[rel="manifest"]').href = manUrl;
+  </script>
+</body>
+</html>
